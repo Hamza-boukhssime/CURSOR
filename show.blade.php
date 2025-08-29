@@ -271,8 +271,8 @@
     /* Base typography - premium, modern feel */
     #article-body.prose-blog {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 17px;
-      line-height: 1.6;
+      font-size: 16px;
+      line-height: 1.5;
       color: #1a1a1a;
       font-weight: 400;
       letter-spacing: -0.01em;
@@ -286,9 +286,9 @@
 
     /* Paragraphs - normal spacing for readability */
     #article-body.prose-blog p {
-      margin: 1rem 0;
+      margin: 0.75rem 0;
       font-size: 1rem;
-      line-height: 1.65;
+      line-height: 1.55;
     }
     
     #article-body.prose-blog p:first-child {
@@ -297,23 +297,23 @@
 
     /* Headings - modern, clean hierarchy */
     #article-body.prose-blog h2 {
-      font-size: 1.75rem;
+      font-size: 1.5rem;
       font-weight: 700;
       color: #0a0a0a;
-      margin: 2rem 0 0.75rem;
+      margin: 1.25rem 0 0.5rem;
       letter-spacing: -0.03em;
-      line-height: 1.3;
+      line-height: 1.2;
       scroll-margin-top: 100px;
       position: relative;
     }
     
     #article-body.prose-blog h3 {
-      font-size: 1.375rem;
+      font-size: 1.25rem;
       font-weight: 600;
       color: #1a1a1a;
-      margin: 1.75rem 0 0.75rem;
+      margin: 1rem 0 0.4rem;
       letter-spacing: -0.02em;
-      line-height: 1.4;
+      line-height: 1.3;
       scroll-margin-top: 100px;
     }
     
@@ -387,15 +387,15 @@
     /* Lists - clean and modern */
     #article-body.prose-blog ul,
     #article-body.prose-blog ol {
-      margin: 1rem 0;
+      margin: 0.75rem 0;
       padding-left: 0;
     }
     
     #article-body.prose-blog li {
-      margin: 0.5rem 0;
-      padding-left: 2rem;
+      margin: 0.25rem 0;
+      padding-left: 1.75rem;
       position: relative;
-      line-height: 1.6;
+      line-height: 1.5;
     }
     
     /* Custom bullet points */
@@ -403,9 +403,9 @@
       content: '';
       position: absolute;
       left: 0.5rem;
-      top: 0.6rem;
-      width: 6px;
-      height: 6px;
+      top: 0.5rem;
+      width: 5px;
+      height: 5px;
       background: #ff6b35;
       border-radius: 50%;
     }
@@ -447,14 +447,14 @@
 
     /* Blockquotes - premium card style */
     #article-body.prose-blog blockquote {
-      margin: 1.25rem 0;
-      padding: 1.25rem 1.5rem;
+      margin: 0.75rem 0;
+      padding: 1rem 1.25rem;
       background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(247, 147, 30, 0.05) 100%);
       border-left: 4px solid;
       border-image: linear-gradient(to bottom, #ff6b35, #f7931e) 1;
       border-radius: 0 12px 12px 0;
       font-style: italic;
-      font-size: 1.05rem;
+      font-size: 1rem;
       position: relative;
       overflow: hidden;
     }
@@ -481,10 +481,10 @@
     /* Tables - modern design */
     #article-body.prose-blog table {
       width: 100%;
-      margin: 1.25rem 0;
+      margin: 0.75rem 0;
       border-collapse: separate;
       border-spacing: 0;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07);
       border-radius: 12px;
       overflow: hidden;
@@ -495,11 +495,11 @@
     }
     
     #article-body.prose-blog thead th {
-      padding: 1rem 1.25rem;
+      padding: 0.75rem 1rem;
       text-align: left;
       font-weight: 600;
       color: white;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
@@ -518,7 +518,7 @@
     }
     
     #article-body.prose-blog td {
-      padding: 1rem 1.25rem;
+      padding: 0.6rem 1rem;
       border-top: 1px solid #e5e5e5;
     }
     
@@ -562,7 +562,7 @@
       width: 100%;
       height: auto;
       border-radius: 12px;
-      margin: 2rem 0;
+      margin: 1rem 0;
       box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.15);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
@@ -574,7 +574,7 @@
 
     /* HR separator */
     #article-body.prose-blog hr {
-      margin: 3rem 0;
+      margin: 1.5rem 0;
       border: none;
       height: 1px;
       background: linear-gradient(to right, transparent, #e5e5e5 20%, #e5e5e5 80%, transparent);
@@ -587,13 +587,13 @@
     /* Remove excessive spacing after headings */
     #article-body.prose-blog h2 + *,
     #article-body.prose-blog h3 + * {
-      margin-top: 0.75rem !important;
+      margin-top: 0.5rem !important;
     }
     
     /* Fix spacing between headings and tables specifically */
     #article-body.prose-blog h2 + table,
     #article-body.prose-blog h3 + table {
-      margin-top: 1rem !important;
+      margin-top: 0.75rem !important;
     }
 
     /* Smooth scrolling */
