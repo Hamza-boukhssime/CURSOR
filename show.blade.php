@@ -272,7 +272,7 @@
     #article-body.prose-blog {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: 16px;
-      line-height: 1.5;
+      line-height: 1.4;
       color: #1a1a1a;
       font-weight: 400;
       letter-spacing: -0.01em;
@@ -286,9 +286,9 @@
 
     /* Paragraphs - normal spacing for readability */
     #article-body.prose-blog p {
-      margin: 0.75rem 0;
+      margin: 0.5rem 0;
       font-size: 1rem;
-      line-height: 1.55;
+      line-height: 1.45;
     }
     
     #article-body.prose-blog p:first-child {
@@ -300,9 +300,9 @@
       font-size: 1.5rem;
       font-weight: 700;
       color: #0a0a0a;
-      margin: 1.25rem 0 0.5rem;
+      margin: 0.75rem 0 0.25rem;
       letter-spacing: -0.03em;
-      line-height: 1.2;
+      line-height: 1.1;
       scroll-margin-top: 100px;
       position: relative;
     }
@@ -311,9 +311,9 @@
       font-size: 1.25rem;
       font-weight: 600;
       color: #1a1a1a;
-      margin: 1rem 0 0.4rem;
+      margin: 0.6rem 0 0.2rem;
       letter-spacing: -0.02em;
-      line-height: 1.3;
+      line-height: 1.2;
       scroll-margin-top: 100px;
     }
     
@@ -387,15 +387,15 @@
     /* Lists - clean and modern */
     #article-body.prose-blog ul,
     #article-body.prose-blog ol {
-      margin: 0.75rem 0;
+      margin: 0.4rem 0;
       padding-left: 0;
     }
     
     #article-body.prose-blog li {
-      margin: 0.25rem 0;
+      margin: 0.1rem 0;
       padding-left: 1.75rem;
       position: relative;
-      line-height: 1.5;
+      line-height: 1.4;
     }
     
     /* Custom bullet points */
@@ -403,7 +403,7 @@
       content: '';
       position: absolute;
       left: 0.5rem;
-      top: 0.5rem;
+      top: 0.45rem;
       width: 5px;
       height: 5px;
       background: #ff6b35;
@@ -422,12 +422,12 @@
       content: counter(list-counter);
       position: absolute;
       left: 0;
-      top: 0.1rem;
-      width: 1.5rem;
-      height: 1.5rem;
+      top: 0.05rem;
+      width: 1.4rem;
+      height: 1.4rem;
       background: linear-gradient(135deg, #ff6b35, #f7931e);
       color: white;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 600;
       display: flex;
       align-items: center;
@@ -447,8 +447,8 @@
 
     /* Blockquotes - premium card style */
     #article-body.prose-blog blockquote {
-      margin: 0.75rem 0;
-      padding: 1rem 1.25rem;
+      margin: 0.5rem 0;
+      padding: 0.75rem 1rem;
       background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(247, 147, 30, 0.05) 100%);
       border-left: 4px solid;
       border-image: linear-gradient(to bottom, #ff6b35, #f7931e) 1;
@@ -462,9 +462,9 @@
     #article-body.prose-blog blockquote::before {
       content: '"';
       position: absolute;
-      top: -10px;
+      top: -15px;
       left: 10px;
-      font-size: 4rem;
+      font-size: 3rem;
       color: rgba(255, 107, 53, 0.15);
       font-family: Georgia, serif;
     }
@@ -481,7 +481,7 @@
     /* Tables - modern design */
     #article-body.prose-blog table {
       width: 100%;
-      margin: 0.75rem 0;
+      margin: 0.5rem 0;
       border-collapse: separate;
       border-spacing: 0;
       font-size: 0.9rem;
@@ -587,13 +587,13 @@
     /* Remove excessive spacing after headings */
     #article-body.prose-blog h2 + *,
     #article-body.prose-blog h3 + * {
-      margin-top: 0.5rem !important;
+      margin-top: 0.25rem !important;
     }
     
     /* Fix spacing between headings and tables specifically */
     #article-body.prose-blog h2 + table,
     #article-body.prose-blog h3 + table {
-      margin-top: 0.75rem !important;
+      margin-top: 0.4rem !important;
     }
 
     /* Smooth scrolling */
