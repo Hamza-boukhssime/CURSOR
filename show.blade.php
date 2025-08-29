@@ -199,26 +199,62 @@
 
       {{-- Related --}}
       <section class="pb-16 reveal">
-        <h2 class="text-xl sm:text-2xl font-semibold text-slate-900 dark:text-slate-100">Related posts</h2>
+        <div class="flex items-center gap-3 mb-6">
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100">Related posts</h2>
+          <div class="h-[2px] flex-1 bg-gradient-to-r from-orange-500/20 to-transparent"></div>
+        </div>
         @if($relatedPosts->isEmpty())
-          <p class="mt-3 text-slate-600 dark:text-slate-300">No related posts yet.</p>
+          <p class="text-slate-600 dark:text-slate-300">No related posts yet.</p>
         @else
-          <ul class="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             @foreach ($relatedPosts as $rel)
               @php $relCover = method_exists($rel, 'ogImageUrl') ? ($rel->ogImageUrl() ?: $rel->thumbnailUrl()) : null; @endphp
-              <li>
-                <a href="{{ route('blog.show', $rel->slug) }}" class="block rounded-xl overflow-hidden bg-white dark:bg-neutral-900 ring-1 ring-black/5 dark:ring-white/5 hover:ring-riy-gold/40 transition">
-                  @if ($relCover)
-                    <img src="{{ $relCover }}" alt="Cover for {{ $rel->title }}" loading="lazy" decoding="async" class="h-40 w-full object-cover">
-                  @endif
-                  <div class="p-4">
-                    <h3 class="text-base font-semibold text-slate-900 dark:text-slate-100">{{ $rel->title }}</h3>
-                    <div class="mt-1 text-xs text-slate-500">{{ $rel->formattedDate('M j, Y') }}</div>
+              <article class="group relative">
+                <a href="{{ route('blog.show', $rel->slug) }}" class="block h-full">
+                  <div class="relative overflow-hidden rounded-2xl bg-white dark:bg-neutral-900 shadow-lg ring-1 ring-black/5 dark:ring-white/5 transition-all duration-300 hover:shadow-2xl hover:ring-orange-500/20 hover:-translate-y-1">
+                    @if ($relCover)
+                      <div class="aspect-[16/10] overflow-hidden">
+                        <img src="{{ $relCover }}" alt="Cover for {{ $rel->title }}" loading="lazy" decoding="async" 
+                             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110">
+                      </div>
+                    @else
+                      <div class="aspect-[16/10] bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-orange-200 dark:text-orange-800" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                      </div>
+                    @endif
+                    
+                    <div class="p-5">
+                      <div class="flex items-center gap-2 mb-3">
+                        <span class="inline-flex items-center rounded-full bg-orange-100 dark:bg-orange-900/30 px-2.5 py-0.5 text-xs font-medium text-orange-800 dark:text-orange-200">
+                          {{ optional($rel->categories->first())->name ?: 'Blog' }}
+                        </span>
+                        <time class="text-xs text-slate-500 dark:text-slate-400">{{ $rel->formattedDate('M j, Y') }}</time>
+                      </div>
+                      
+                      <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100 line-clamp-2 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
+                        {{ $rel->title }}
+                      </h3>
+                      
+                      @if($rel->excerpt)
+                        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 line-clamp-2">
+                          {{ Str::limit($rel->excerpt, 100) }}
+                        </p>
+                      @endif
+                      
+                      <div class="mt-4 flex items-center text-sm font-medium text-orange-600 dark:text-orange-400">
+                        <span>Read more</span>
+                        <svg class="ml-1 w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                      </div>
+                    </div>
                   </div>
                 </a>
-              </li>
+              </article>
             @endforeach
-          </ul>
+          </div>
         @endif
       </section>
 
@@ -261,10 +297,10 @@
 
     /* Headings - modern, clean hierarchy */
     #article-body.prose-blog h2 {
-      font-size: 2rem;
+      font-size: 1.75rem;
       font-weight: 700;
       color: #0a0a0a;
-      margin: 3rem 0 1.25rem;
+      margin: 2rem 0 0.75rem;
       letter-spacing: -0.03em;
       line-height: 1.3;
       scroll-margin-top: 100px;
@@ -272,10 +308,10 @@
     }
     
     #article-body.prose-blog h3 {
-      font-size: 1.5rem;
+      font-size: 1.375rem;
       font-weight: 600;
       color: #1a1a1a;
-      margin: 2.5rem 0 1rem;
+      margin: 1.75rem 0 0.75rem;
       letter-spacing: -0.02em;
       line-height: 1.4;
       scroll-margin-top: 100px;
@@ -351,15 +387,15 @@
     /* Lists - clean and modern */
     #article-body.prose-blog ul,
     #article-body.prose-blog ol {
-      margin: 1.5rem 0;
+      margin: 1rem 0;
       padding-left: 0;
     }
     
     #article-body.prose-blog li {
-      margin: 0.75rem 0;
+      margin: 0.5rem 0;
       padding-left: 2rem;
       position: relative;
-      line-height: 1.7;
+      line-height: 1.6;
     }
     
     /* Custom bullet points */
@@ -411,14 +447,14 @@
 
     /* Blockquotes - premium card style */
     #article-body.prose-blog blockquote {
-      margin: 2rem 0;
-      padding: 1.5rem 2rem;
+      margin: 1.25rem 0;
+      padding: 1.25rem 1.5rem;
       background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(247, 147, 30, 0.05) 100%);
       border-left: 4px solid;
       border-image: linear-gradient(to bottom, #ff6b35, #f7931e) 1;
       border-radius: 0 12px 12px 0;
       font-style: italic;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       position: relative;
       overflow: hidden;
     }
@@ -445,7 +481,7 @@
     /* Tables - modern design */
     #article-body.prose-blog table {
       width: 100%;
-      margin: 2rem 0;
+      margin: 1.25rem 0;
       border-collapse: separate;
       border-spacing: 0;
       font-size: 0.95rem;
@@ -552,6 +588,12 @@
     #article-body.prose-blog h2 + *,
     #article-body.prose-blog h3 + * {
       margin-top: 0.75rem !important;
+    }
+    
+    /* Fix spacing between headings and tables specifically */
+    #article-body.prose-blog h2 + table,
+    #article-body.prose-blog h3 + table {
+      margin-top: 1rem !important;
     }
 
     /* Smooth scrolling */
