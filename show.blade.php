@@ -235,8 +235,8 @@
     /* Base typography - premium, modern feel */
     #article-body.prose-blog {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 18px;
-      line-height: 1.75;
+      font-size: 17px;
+      line-height: 1.6;
       color: #1a1a1a;
       font-weight: 400;
       letter-spacing: -0.01em;
@@ -248,11 +248,11 @@
       color: #e5e5e5;
     }
 
-    /* Paragraphs - optimal spacing for readability */
+    /* Paragraphs - normal spacing for readability */
     #article-body.prose-blog p {
-      margin: 1.5rem 0;
-      font-size: 1.05rem;
-      line-height: 1.8;
+      margin: 1rem 0;
+      font-size: 1rem;
+      line-height: 1.65;
     }
     
     #article-body.prose-blog p:first-child {
