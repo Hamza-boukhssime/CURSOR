@@ -136,14 +136,42 @@
 
       {{-- MOBILE TOC --}}
       <section class="mt-7 lg:hidden reveal">
-        <details class="rounded-xl bg-white dark:bg-neutral-900 ring-1 ring-black/5 dark:ring-white/5">
-          <summary class="cursor-pointer list-none px-4 py-3 text-sm font-semibold text-slate-900 dark:text-slate-100">
-            On this page
-          </summary>
-          <nav class="px-4 pb-3">
-            <ol class="text-sm space-y-1.5" data-toc-mobile></ol>
-          </nav>
-        </details>
+        <div class="fixed bottom-6 right-6 z-40">
+          <button id="mobile-toc-toggle" 
+                  class="group relative w-14 h-14 bg-gradient-to-br from-orange-500 to-amber-500 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110">
+            <span class="sr-only">Toggle table of contents</span>
+            <!-- Hamburger icon -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="w-6 space-y-1.5 transition-all duration-300">
+                <span class="block h-0.5 w-6 bg-white transition-transform duration-300 toc-line-1"></span>
+                <span class="block h-0.5 w-6 bg-white transition-opacity duration-300 toc-line-2"></span>
+                <span class="block h-0.5 w-6 bg-white transition-transform duration-300 toc-line-3"></span>
+              </div>
+            </div>
+          </button>
+        </div>
+        
+        <!-- Mobile TOC Panel -->
+        <div id="mobile-toc-panel" 
+             class="fixed inset-x-0 bottom-0 z-30 transform translate-y-full transition-transform duration-300 ease-out">
+          <div class="bg-white dark:bg-neutral-900 rounded-t-2xl shadow-2xl ring-1 ring-black/5 dark:ring-white/5 max-h-[70vh] overflow-hidden flex flex-col">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+              <h2 class="text-lg font-semibold text-slate-900 dark:text-slate-100">On this page</h2>
+              <button id="mobile-toc-close" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <nav class="overflow-y-auto px-6 py-4 flex-1">
+              <ol class="text-sm space-y-2" data-toc-mobile></ol>
+            </nav>
+          </div>
+        </div>
+        
+        <!-- Backdrop -->
+        <div id="mobile-toc-backdrop" 
+             class="fixed inset-0 bg-black/20 backdrop-blur-sm z-20 opacity-0 pointer-events-none transition-opacity duration-300"></div>
       </section>
 
       {{-- L / Article / R --}}
@@ -644,6 +672,51 @@
       background: linear-gradient(to bottom, #ff6b35, #f7931e);
       border-radius: 2px;
     }
+    
+    /* Mobile TOC styles */
+    @media (max-width: 1023px) {
+      .toc-link {
+        display: block;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+      }
+      
+      .toc-link:hover {
+        background: rgba(255, 107, 53, 0.1);
+        color: #ff6b35;
+      }
+      
+      .toc-link.is-active {
+        background: linear-gradient(135deg, rgba(255, 107, 53, 0.15) 0%, rgba(247, 147, 30, 0.15) 100%);
+        padding-left: 1.5rem;
+      }
+      
+      .toc-link.is-active::before {
+        left: 0.5rem;
+      }
+      
+      /* Nested TOC items */
+      #mobile-toc-panel ol ol {
+        margin-left: 1rem;
+        padding-left: 1rem;
+        border-left: 2px solid rgba(255, 107, 53, 0.2);
+        margin-top: 0.5rem;
+      }
+    }
+    
+    /* Hamburger animation */
+    .toc-open .toc-line-1 {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .toc-open .toc-line-2 {
+      opacity: 0;
+    }
+    
+    .toc-open .toc-line-3 {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
 
     /* Add reading progress indicator at top */
     .reading-progress {
@@ -694,8 +767,22 @@
         const li=document.createElement('li'); const a=document.createElement('a');
         a.href=`#${id}`; a.className='toc-link block rounded px-2 py-1 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100';
         a.textContent=(el.textContent||'').trim();
+        
+        // Add click handler for mobile
+        a.addEventListener('click', (e) => {
+          if (window.innerWidth < 1024) {
+            e.preventDefault();
+            closeMobileToc();
+            setTimeout(() => {
+              document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 300);
+          }
+        });
+        
         if(level===2){ const wrap=document.createElement('li'), head=a.cloneNode(true), ol=document.createElement('ol');
-          ol.className='mt-1 space-y-1 pl-3 border-l border-black/5 dark:border-white/5'; wrap.appendChild(head); wrap.appendChild(ol); root.appendChild(wrap); return ol;
+          ol.className='mt-1 space-y-1 pl-3 border-l border-black/5 dark:border-white/5'; 
+          head.addEventListener('click', a.onclick); // Copy click handler
+          wrap.appendChild(head); wrap.appendChild(ol); root.appendChild(wrap); return ol;
         } else { li.appendChild(a); root.appendChild(li); return null; }
       }
 
@@ -722,6 +809,53 @@
         document.querySelectorAll('#article-body h2[id], #article-body h3[id], #article-body p.toc-h2[id], #article-body p.toc-h3[id], #article-body p[data-toc="2"][id], #article-body p[data-toc="3"][id]')
           .forEach(h=>spy.observe(h));
       }
+    })();
+
+    // Mobile TOC functionality
+    (function(){
+      const toggle = document.getElementById('mobile-toc-toggle');
+      const panel = document.getElementById('mobile-toc-panel');
+      const backdrop = document.getElementById('mobile-toc-backdrop');
+      const closeBtn = document.getElementById('mobile-toc-close');
+      const hamburger = toggle?.querySelector('.w-6');
+      
+      if (!toggle || !panel || !backdrop) return;
+
+      function openMobileToc() {
+        panel.classList.remove('translate-y-full');
+        backdrop.classList.remove('opacity-0', 'pointer-events-none');
+        backdrop.classList.add('opacity-100');
+        hamburger?.classList.add('toc-open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMobileToc() {
+        panel.classList.add('translate-y-full');
+        backdrop.classList.add('opacity-0', 'pointer-events-none');
+        backdrop.classList.remove('opacity-100');
+        hamburger?.classList.remove('toc-open');
+        document.body.style.overflow = '';
+      }
+
+      window.closeMobileToc = closeMobileToc; // Make it globally available
+
+      toggle.addEventListener('click', () => {
+        if (panel.classList.contains('translate-y-full')) {
+          openMobileToc();
+        } else {
+          closeMobileToc();
+        }
+      });
+
+      closeBtn?.addEventListener('click', closeMobileToc);
+      backdrop.addEventListener('click', closeMobileToc);
+
+      // Close on ESC key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !panel.classList.contains('translate-y-full')) {
+          closeMobileToc();
+        }
+      });
     })();
 
     // Share functionality
